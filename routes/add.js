@@ -1,4 +1,4 @@
-module.exports = function(app){
+module.exports = function(app, db){
   var express = require('express');
   var route = express.Router();
   app.get('/add', function(req, res){

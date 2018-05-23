@@ -17,17 +17,9 @@ app.set('views', './views');
 app.locals.pretty = true;
 
 // OrientDB
-var OrientDB = require('orientjs');
-var server = OrientDB({
-  host: '10.10.10.3',
-  port: 2424,
-  username: 'root',
-  password: 'jin85200--'
-});
-var db = server.use('focus');
+var db = require('./config/orientdb')(app);
 
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////
 
 var list = require('./routes/list')(app, db);
 app.use('/list', list);
@@ -35,11 +27,10 @@ app.use('/list', list);
 var login = require('./routes/login')(app);
 app.use('/login', login);
 
-var add = require('./routes/add')(app);
+var add = require('./routes/add')(app, db);
 app.use('/add', add);
 
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////
 
 
 app.get('/count', function(req, res){
@@ -84,21 +75,8 @@ app.post('/auth/login', function(req, res){
     res.send('<h1>Who are you?</h1><a href="/auth/login">login</a>');
   }
 })
-app.get('/auth/login', function(req, res){
-  var output = `
-  <form action="/auth/login" method='post'>
-    <p>
-      <input type='text' name='username' placeholder='username'>
-    </p>
-    <p>
-      <input type='text' name='password' placeholder='password'>
-    </p>
-    <p>
-      <input type='submit'>
-    </p>
-  </form>
-  `
-  res.send(output);
+app.get('/auth/login', function(req, res){ 
+  res.render('authlogin');
 });
 app.get('/', function(req, res){
   res.render('login');
