@@ -3,6 +3,7 @@ var express = require('express');
 var bodyparser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var FileStore = require('session-file-store')(session);
 var app = express();
 app.use(express.static('public'));
 app.use(bodyparser.urlencoded({ extended: false }));
@@ -10,7 +11,8 @@ app.use(cookieParser());
 app.use(session({
   secret: '123455kasldfk324lk23l4k@#$2#4',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new FileStore()
 }));
 app.set('view engine', 'pug');
 app.set('views', './views');
@@ -43,13 +45,13 @@ app.get('/count', function(req, res){
 });
 
 app.get('/auth/logout', function(req, res){
-  delete req.session.dispalyName;
+  delete req.session.displayName;
   res.redirect('/welcome');
 });
 app.get('/welcome', function(req, res){
-  if(req.session.dispalyName){
+  if(req.session.displayName){
     res.send(`
-      <h1>Hello, ${req.session.dispalyName}</h1>
+      <h1>Hello, ${req.session.displayName}</h1>
       <a href='/auth/logout'>Logout</a>
     `);
   } else {
@@ -59,17 +61,18 @@ app.get('/welcome', function(req, res){
     `);
   }
 });
+
 // AUTH/LOGIN
 app.post('/auth/login', function(req, res){
   var user = {
     username:'packman',
     password:'111',
-    dispalyName:'PACKMAN'
+    displayName:'PACKMAN'
   };
   var uname = req.body.username;
   var pwd = req.body.password;
   if(uname === user.username && pwd === user.password){
-    req.session.dispalyName = user.dispalyName;
+    req.session.displayName = user.displayName;
     res.redirect('/welcome');
   } else {
     res.send('<h1>Who are you?</h1><a href="/auth/login">login</a>');
