@@ -1,9 +1,11 @@
-extends layout
+extends ../views/layout
 block content
-  form(action='welcome')
+  form(action='/auth/login' method='post')
+    .input-group
+      input.form-control(type='text' name='username' placeholder='Username' aria-describedby='basic-addon1')
     p
-      input(type='text' placeholder='ID' name='id')
+    .input-group
+      input.form-control(type='text' name='password' placeholder='Password' aria-describedby='basic-addon1')
     p
-      input(type='text' placeholder='Password' name='password') 
     p
       input(type='submit')

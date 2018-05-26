@@ -15,19 +15,22 @@ html(lang="ko")
       .row
         header.jumbotron.text-center
           h1
-            a(href='/') Hello, world!
+            a(href='/') Focus at Music
       .row
-        nav.col-md-2
-          h3
-            a(href='/list') List Page
-          h3
-            a(href='/auth/login') Login Page
-          h3
-            a(href='/add') Register Page
-          h3
-            a(href='/bootstr') Bootstrap
-        article.col-md-8
-          block content
+        nav.col-md-12
+          .btn-group(role='group', aria-label='menu')
+            button.btn.btn-default(type='button')
+              a(href='/list') Music List
+            button.btn.btn-default(type='button')
+              a(href='/auth/login') Login
+            button.btn.btn-default(type='button')
+              a(href='/auth/register') Register
+            button.btn.btn-default(type='button')
+              a(href='/add') Music Add
+      .row
+        article.col-md-12
+          p
+            block content
 
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")

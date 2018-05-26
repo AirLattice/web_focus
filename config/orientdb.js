@@ -9,5 +9,3 @@ module.exports = function(app){
   var db = server.use('focus');
   return db;
 };
-
-  
