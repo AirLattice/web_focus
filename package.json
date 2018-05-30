@@ -5,16 +5,23 @@
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "connect-oriento": "^0.1.4",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "http": "0.0.0",
+    "md5": "^2.2.1",
+    "morgan": "^1.9.0",
     "orientjs": "^2.2.10",
     "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
+    "pbkdf2-password": "^1.2.1",
     "plex-api": "^5.2.0",
     "pug": "^2.0.3",
     "request": "^2.87.0",
-    "session-file-store": "^1.2.0"
+    "session-file-store": "^1.2.0",
+    "sha256": "^0.2.0"
   },
   "devDependencies": {},
   "scripts": {

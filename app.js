@@ -1,10 +1,11 @@
 // Application Require & Other
-var express = require('express');
-var bodyparser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var FileStore = require('session-file-store')(session);
-var app = express();
+const express = require('express');
+const bodyparser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
+const morgan = require('morgan');
+const app = express();
 
 
 // SESSION CONFIG
@@ -33,9 +34,16 @@ app.locals.pretty = true;
 // OrientDB
 var db = require('./config/orientdb')(app);
 
+
+
+
 // ROUTER Modules
+const restapiRoutes = require('./routes/restapi');
+app.use('/restapi', restapiRoutes);
+const oauthRoutes = require('./routes/oauth');
+app.use('/oauth', oauthRoutes);
 
-
+app.use(morgan('dev'));
 
 
 
@@ -149,6 +157,26 @@ app.get('/', function(req, res){
     res.render('list', {lists:list});
   });
 });
+app.get('/flex', function(req, res){
+  res.render('flex');
+});
+
+
+app.use((req, res, next) => {
+  const error = new Error('Not found');
+  error.status = 404;
+  next(error);
+});
+
+app.use((error, req, res, nett) => {
+  res.status(error.status || 500);
+  res.json({
+    error: {
+      message: error.message
+    }
+  });
+});
+
 
 
 // WEB_LISTEN

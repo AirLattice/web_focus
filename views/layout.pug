@@ -9,9 +9,22 @@ html(lang="ko")
   body
     style.
       #container{
-        padding-top:20px;
+        padding-top:5px;
+      }
+      #aaa{
+        padding-bottom:5px;
+      }
+      #bbb{
+        padding-bottom:5px;
       }
     .container(id="container")
+      .row
+        .col-md-8
+        .col-md-1(id='aaa')
+            a(href='/auth/login') Login
+        .col-md-1(id='bbb')
+            a(href='/auth/register') Register
+        .col-md-8
       .row
         header.jumbotron.text-center
           h1
@@ -21,10 +34,6 @@ html(lang="ko")
           .btn-group(role='group', aria-label='menu')
             button.btn.btn-default(type='button')
               a(href='/list') Music List
-            button.btn.btn-default(type='button')
-              a(href='/auth/login') Login
-            button.btn.btn-default(type='button')
-              a(href='/auth/register') Register
             button.btn.btn-default(type='button')
               a(href='/add') Music Add
       .row
